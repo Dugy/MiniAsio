@@ -89,11 +89,7 @@ class Listener : public IListener {
 	int listenSocketHandle = 0;
 	std::vector<pollfd> pollDescriptors;
 
-#ifdef __linux__
 	constexpr static int PollInFlag = POLLIN;
-#elif __APPLE__
-	constexpr static int PollInFlag = POLL_IN;
-#endif
 
 	void sendBytes(FileDescriptor socket, span<const uint8_t> sent) override {
 		if (send(socket.descriptor, sent.data(), sent.size(), 0) < 0) {
